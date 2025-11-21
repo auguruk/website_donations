@@ -79,7 +79,8 @@ class CustomStripeController(http.Controller):
             return "Stripe Session Error: %s" % session_resp.text
 
         session_url = session_resp.json().get("url")
-        return request.redirect(session_url)
+
+        return request.redirect(session_url, local=False)
 
     @http.route('/payment/status', type='http', auth='public', website=True)
     def payment_status(self, **kwargs):
