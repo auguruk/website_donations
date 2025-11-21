@@ -1,5 +1,6 @@
 from odoo import http
 from odoo.http import request
+import requests
 
 
 class CustomStripeController(http.Controller):
@@ -38,7 +39,7 @@ class CustomStripeController(http.Controller):
         # -----------------------------
         # 1. Create Stripe Price
         # -----------------------------
-        price_resp = request.post(
+        price_resp = requests.post(
             "https://api.stripe.com/v1/prices",
             auth=(secret_key, ""),
             data={
@@ -58,7 +59,7 @@ class CustomStripeController(http.Controller):
         # -----------------------------
         # 2. Create Checkout Session
         # -----------------------------
-        session_resp = request.post(
+        session_resp = requests.post(
             "https://api.stripe.com/v1/checkout/sessions",
             auth=(secret_key, ""),
             data={
