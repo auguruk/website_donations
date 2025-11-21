@@ -1,5 +1,5 @@
 from odoo import http
-from odoo.http import request, requests
+from odoo.http import request
 
 
 class CustomStripeController(http.Controller):
