@@ -21,8 +21,8 @@ class CustomStripeController(http.Controller):
         IrConfig = request.env["ir.config_parameter"].sudo()
 
         stripe = request.env['payment.provider'].search([
-            ('code', '==', 'stripe'),
-            ('state', '==', 'enabled'),
+            ('code', '=', 'stripe'),
+            ('state', '=', 'enabled'),
         ])
 
         secret_key = ''
@@ -38,7 +38,7 @@ class CustomStripeController(http.Controller):
         # -----------------------------
         # 1. Create Stripe Price
         # -----------------------------
-        price_resp = requests.post(
+        price_resp = request.post(
             "https://api.stripe.com/v1/prices",
             auth=(secret_key, ""),
             data={
@@ -58,7 +58,7 @@ class CustomStripeController(http.Controller):
         # -----------------------------
         # 2. Create Checkout Session
         # -----------------------------
-        session_resp = requests.post(
+        session_resp = request.post(
             "https://api.stripe.com/v1/checkout/sessions",
             auth=(secret_key, ""),
             data={
