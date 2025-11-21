@@ -19,7 +19,16 @@ class CustomStripeController(http.Controller):
 
         # Get system parameters
         IrConfig = request.env["ir.config_parameter"].sudo()
-        secret_key = IrConfig.get_param("stripe.secret_key")
+
+        stripe = request.env['payment.provider'].search([
+            ('code', '==', 'stripe'),
+            ('state', '==', 'enabled'),
+        ])
+
+        secret_key = ''
+        if stripe:
+            secret_key = stripe.stripe_secret_key
+
         product_id = IrConfig.get_param("stripe.product_id")
         base_url = IrConfig.get_param("web.base.url")
 
