@@ -25,4 +25,33 @@
             </section>
         </t>
     </template>
+    <template id="payment_status_page" name="Stripe Payment Status Page">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+
+                <t t-if="status == 'success'">
+                    <div class="alert alert-success">
+                        <h3>Thank you!</h3>
+                        <p>Your subscription has been successfully created.</p>
+                    </div>
+                </t>
+
+                <t t-if="status == 'canceled'">
+                    <div class="alert alert-warning">
+                        <h3>Payment Cancelled</h3>
+                        <p>You did not complete the subscription process.</p>
+                    </div>
+                </t>
+
+                <t t-if="status == 'unknown'">
+                    <div class="alert alert-danger">
+                        <h3>Unknown Status</h3>
+                        <p>We could not determine the payment status.</p>
+                    </div>
+                </t>
+
+                <a href="/" class="btn btn-primary mt-3">Return to Home</a>
+            </div>
+        </t>
+    </template>
 </odoo>

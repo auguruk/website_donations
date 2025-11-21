@@ -80,3 +80,16 @@ class CustomStripeController(http.Controller):
 
         session_url = session_resp.json().get("url")
         return request.redirect(session_url)
+
+    @http.route('/payment/status', type='http', auth='public', website=True)
+    def payment_status(self, **kwargs):
+        status = "unknown"
+        if kwargs.get("success"):
+            status = "success"
+        elif kwargs.get("canceled"):
+            status = "canceled"
+
+        return request.render(
+            "website_donations.payment_status_page",
+            {"status": status}
+        )
