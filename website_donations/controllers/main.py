@@ -6,7 +6,7 @@ class CustomStripeController(http.Controller):
 
     @http.route('/custom/subscription', type='http', auth='public', website=True)
     def subscription_form(self, **kwargs):
-        return request.render('custom_stripe_subscription.subscription_form')
+        return request.render('website_donations.subscription_form')
 
     @http.route('/custom/subscription/create', type='http', auth='public', csrf=False, methods=['POST'])
     def create_subscription(self, **post):
